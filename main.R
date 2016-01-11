@@ -39,8 +39,12 @@ proj4string(ind.trainrail) <- prj_string_RD
 railbuffer <- gBuffer(ind.trainrail, byid = TRUE, width = 1000)
 
 # Find the place (i.e. a city) that intersects with this buffer
-
-
+dsn2 = file.path("Data", "places.shp")
+ogrListLayers(dsn2)
+places <- readOGR(dsn2, layer = ogrListLayers(dsn2))
+proj4string(places) <- prj_string_RD
+intersection <- gIntersection(places, railbuffer, byid=FALSE)
+plot(intersection)
 # Create a plot that shows the buffer, the points, and the name of the city
 
 
